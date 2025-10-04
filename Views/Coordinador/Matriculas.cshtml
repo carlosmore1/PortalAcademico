@@ -1,0 +1,42 @@
+@model PortalAcademico.Models.Curso
+
+@{
+    ViewData["Title"] = "Matrículas del Curso";
+}
+
+<h2>Matrículas en @Model.Nombre</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model.Matriculas)
+        {
+            <tr>
+                <td>@m.Id</td>
+                <td>@m.UsuarioId</td>
+                <td>@m.FechaRegistro.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@m.Estado</td>
+                <td>
+                    <form asp-action="CambiarEstadoMatricula" method="post" class="d-inline">
+                        <input type="hidden" name="matriculaId" value="@m.Id" />
+                        <select name="nuevoEstado" class="form-select form-select-sm d-inline w-auto">
+                            <option value="Confirmada">Confirmar</option>
+                            <option value="Cancelada">Cancelar</option>
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Aplicar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-secondary">Volver</a>
