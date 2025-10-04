@@ -1,0 +1,30 @@
+@model PortalAcademico.Models.Curso
+
+@{
+    ViewData["Title"] = "Detalle del Curso";
+}
+
+<h2>@Model.Nombre</h2>
+
+<div class="card mt-3">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Código:</dt>
+            <dd class="col-sm-9">@Model.Codigo</dd>
+
+            <dt class="col-sm-3">Créditos:</dt>
+            <dd class="col-sm-9">@Model.Creditos</dd>
+
+            <dt class="col-sm-3">Cupo Máximo:</dt>
+            <dd class="col-sm-9">@Model.CupoMaximo</dd>
+
+            <dt class="col-sm-3">Horario:</dt>
+            <dd class="col-sm-9">@($"{Model.HorarioInicio:hh\\:mm} - {Model.HorarioFin:hh\\:mm}")</dd>
+        </dl>
+
+        <a asp-action="Index" class="btn btn-secondary">Volver</a>
+        <a asp-controller="Matriculas" asp-action="Crear" asp-route-cursoId="@Model.Id" class="btn btn-success">
+            Inscribirse
+        </a>
+    </div>
+</div>
