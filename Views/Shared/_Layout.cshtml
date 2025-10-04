@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="~/PortalAcademico.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @* Mensajes globales *@
     @if (TempData["Error"] != null)
     {
         <div class="alert alert-danger text-center mt-3">@TempData["Error"]</div>
@@ -33,6 +34,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Cursos" asp-action="Index">Catálogo</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
@@ -41,6 +45,26 @@
             </div>
         </nav>
     </header>
+
+    @* Botón de sesión: Volver al último curso visitado *@
+    @{
+        var ultimoNombre = Context.Session.GetString("UltimoCursoNombre");
+        var ultimoId = Context.Session.GetInt32("UltimoCursoId");
+    }
+    @if (!string.IsNullOrEmpty(ultimoNombre) && ultimoId.HasValue)
+    {
+        <div class="container">
+            <div class="d-flex justify-content-center mb-2">
+                <a class="btn btn-outline-info"
+                   asp-controller="Cursos"
+                   asp-action="Detalle"
+                   asp-route-id="@ultimoId">
+                    🔙 Volver al curso @ultimoNombre
+                </a>
+            </div>
+        </div>
+    }
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
