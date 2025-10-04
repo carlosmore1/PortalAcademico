@@ -1,0 +1,24 @@
+@{
+    ViewData["Title"] = "Confirmar Inscripción";
+    var curso = ViewBag.Curso as PortalAcademico.Models.Curso;
+}
+
+<h2>Inscripción en el curso</h2>
+
+@if (curso != null)
+{
+    <div class="card mt-3">
+        <div class="card-body">
+            <h4>@curso.Nombre</h4>
+            <p><strong>Código:</strong> @curso.Codigo</p>
+            <p><strong>Créditos:</strong> @curso.Creditos</p>
+            <p><strong>Horario:</strong> @($"{curso.HorarioInicio:hh\\:mm} - {curso.HorarioFin:hh\\:mm}")</p>
+
+            <form asp-action="CrearConfirmado" method="post">
+                <input type="hidden" name="cursoId" value="@curso.Id" />
+                <button type="submit" class="btn btn-success">Confirmar Inscripción</button>
+                <a asp-controller="Cursos" asp-action="Detalle" asp-route-id="@curso.Id" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+}

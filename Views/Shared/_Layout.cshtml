@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="~/PortalAcademico.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger text-center mt-3">@TempData["Error"]</div>
+    }
+    @if (TempData["Exito"] != null)
+    {
+        <div class="alert alert-success text-center mt-3">@TempData["Exito"]</div>
+    }
+
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
