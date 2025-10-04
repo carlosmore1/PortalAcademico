@@ -16,18 +16,18 @@ namespace PortalAcademico.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Índice único
             modelBuilder.Entity<Curso>()
                 .HasIndex(c => c.Codigo)
                 .IsUnique();
 
-            // Restricciones
             modelBuilder.Entity<Curso>()
-                .HasCheckConstraint("CK_Curso_Creditos_Pos", "Creditos > 0")
-                .HasCheckConstraint("CK_Curso_Cupo_Pos", "CupoMaximo > 0")
-                .HasCheckConstraint("CK_Curso_Horario", "HorarioInicio < HorarioFin");
+                .ToTable(t =>
+                {
+                    t.HasCheckConstraint("CK_Curso_Creditos_Pos", "Creditos > 0");
+                    t.HasCheckConstraint("CK_Curso_Cupo_Pos", "CupoMaximo > 0");
+                    t.HasCheckConstraint("CK_Curso_Horario", "HorarioInicio < HorarioFin");
+                });
 
-            // Un usuario no puede matricularse dos veces en el mismo curso
             modelBuilder.Entity<Matricula>()
                 .HasIndex(m => new { m.CursoId, m.UsuarioId })
                 .IsUnique();
